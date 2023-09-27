@@ -1,0 +1,15 @@
+# MacOS system files
+
+.DS_store
+
+# Python cache
+
+__pycache__/
+*.py[cod]
+
+# Prism launcher files
+
+/meta/
+/assets/
+/libraries/
+/instances/
