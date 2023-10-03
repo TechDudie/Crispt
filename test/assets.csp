@@ -1,0 +1,45 @@
+args version
+
+var META_INDEX "meta/net.minecraft/{}.json"
+var ASSET_INDEX "assets/indexes/{}.json"
+
+format META_INDEX version
+
+directory "assets"
+directory "assets/indexes"
+directory "assets/objects"
+
+load_json META_INDEX
+
+var ASSET_INDEX_ID json["assetIndex"]["id"]
+var ASSET_INDEX_URL json["assetIndex"]["url"]
+
+format ASSET_INDEX ASSET_INDEX_ID
+
+download ASSET_INDEX_URL ASSET_INDEX
+
+load_json ASSET_INDEX
+
+var SIZE 0
+var FILES []
+
+<python>
+asset_list = json["objects"].values()
+ASSETS = len(asset_list)
+for asset in asset_list:
+    SIZE += asset["size"]
+SIZE = int(size / 104857.6) / 10
+</python>
+
+var INFO_STRING "Downloading {} assets, {} MB"
+format INFO_STRING ASSETS SIZE
+log INFO_STRING
+
+<python>
+for asset in asset_list:
+    hash = asset["hash"]
+    create_directory(f"assets/objects/{hash[:2]}")
+    FILES.append((f"assets/objects/{hash[:2]}/{hash}", f"{asset_index_url}{hash[:2]}/{hash}"))
+</python>
+
+multidownload FILES

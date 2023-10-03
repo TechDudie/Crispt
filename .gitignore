@@ -6,10 +6,3 @@
 
 __pycache__/
 *.py[cod]
-
-# Prism launcher files
-
-/meta/
-/assets/
-/libraries/
-/instances/

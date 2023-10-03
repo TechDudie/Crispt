@@ -1,0 +1,3 @@
+download "https://codeload.github.com/PrismLauncher/meta-launcher/zip/refs/heads/master" "meta.zip"
+unzip "meta.zip"
+move "meta-launcher-master" "meta"
